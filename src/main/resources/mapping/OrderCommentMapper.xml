@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cumt.chiduoduo.dao.OrderCommentMapper">
+  <resultMap id="BaseResultMap" type="com.cumt.chiduoduo.model.OrderComment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="order_sn" jdbcType="VARCHAR" property="orderSn" />
+    <result column="order_master_id" jdbcType="INTEGER" property="orderMasterId" />
+    <result column="quality" jdbcType="INTEGER" property="quality" />
+    <result column="taste" jdbcType="INTEGER" property="taste" />
+    <result column="service" jdbcType="INTEGER" property="service" />
+    <result column="comment" jdbcType="VARCHAR" property="comment" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="img_1" jdbcType="VARCHAR" property="img1" />
+    <result column="img_2" jdbcType="VARCHAR" property="img2" />
+    <result column="img_3" jdbcType="VARCHAR" property="img3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_sn, order_master_id, quality, taste, service, comment, create_time, img_1, 
+    img_2, img_3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cumt.chiduoduo.model.OrderComment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into order_comment (order_sn, order_master_id, quality, 
+      taste, service, comment, 
+      create_time, img_1, img_2, 
+      img_3)
+    values (#{orderSn,jdbcType=VARCHAR}, #{orderMasterId,jdbcType=INTEGER}, #{quality,jdbcType=INTEGER}, 
+      #{taste,jdbcType=INTEGER}, #{service,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{img1,jdbcType=VARCHAR}, #{img2,jdbcType=VARCHAR}, 
+      #{img3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cumt.chiduoduo.model.OrderComment">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into order_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderSn != null">
+        order_sn,
+      </if>
+      <if test="orderMasterId != null">
+        order_master_id,
+      </if>
+      <if test="quality != null">
+        quality,
+      </if>
+      <if test="taste != null">
+        taste,
+      </if>
+      <if test="service != null">
+        service,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="img1 != null">
+        img_1,
+      </if>
+      <if test="img2 != null">
+        img_2,
+      </if>
+      <if test="img3 != null">
+        img_3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderSn != null">
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMasterId != null">
+        #{orderMasterId,jdbcType=INTEGER},
+      </if>
+      <if test="quality != null">
+        #{quality,jdbcType=INTEGER},
+      </if>
+      <if test="taste != null">
+        #{taste,jdbcType=INTEGER},
+      </if>
+      <if test="service != null">
+        #{service,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="img1 != null">
+        #{img1,jdbcType=VARCHAR},
+      </if>
+      <if test="img2 != null">
+        #{img2,jdbcType=VARCHAR},
+      </if>
+      <if test="img3 != null">
+        #{img3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cumt.chiduoduo.model.OrderComment">
+    update order_comment
+    <set>
+      <if test="orderSn != null">
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMasterId != null">
+        order_master_id = #{orderMasterId,jdbcType=INTEGER},
+      </if>
+      <if test="quality != null">
+        quality = #{quality,jdbcType=INTEGER},
+      </if>
+      <if test="taste != null">
+        taste = #{taste,jdbcType=INTEGER},
+      </if>
+      <if test="service != null">
+        service = #{service,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="img1 != null">
+        img_1 = #{img1,jdbcType=VARCHAR},
+      </if>
+      <if test="img2 != null">
+        img_2 = #{img2,jdbcType=VARCHAR},
+      </if>
+      <if test="img3 != null">
+        img_3 = #{img3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cumt.chiduoduo.model.OrderComment">
+    update order_comment
+    set order_sn = #{orderSn,jdbcType=VARCHAR},
+      order_master_id = #{orderMasterId,jdbcType=INTEGER},
+      quality = #{quality,jdbcType=INTEGER},
+      taste = #{taste,jdbcType=INTEGER},
+      service = #{service,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      img_1 = #{img1,jdbcType=VARCHAR},
+      img_2 = #{img2,jdbcType=VARCHAR},
+      img_3 = #{img3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByOrderMasterId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from order_comment
+    where order_master_id = #{orderMasterId,jdbcType=INTEGER}
+  </select>
+</mapper>

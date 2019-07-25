@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cumt.chiduoduo.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.cumt.chiduoduo.model.Product" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="stock" property="stock" jdbcType="INTEGER" />
+    <result column="sales" property="sales" jdbcType="INTEGER" />
+    <result column="img_No1" property="imgNo1" jdbcType="VARCHAR" />
+    <result column="img_No2" property="imgNo2" jdbcType="VARCHAR" />
+    <result column="img_No3" property="imgNo3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, description, category_id, price, stock, sales, img_No1, img_No2, img_No3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from product
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from product
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cumt.chiduoduo.model.Product" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product (name, description, category_id, 
+      price, stock, sales, 
+      img_No1, img_No2, img_No3
+      )
+    values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{stock,jdbcType=INTEGER}, #{sales,jdbcType=INTEGER}, 
+      #{imgNo1,jdbcType=VARCHAR}, #{imgNo2,jdbcType=VARCHAR}, #{imgNo3,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cumt.chiduoduo.model.Product" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="sales != null" >
+        sales,
+      </if>
+      <if test="imgNo1 != null" >
+        img_No1,
+      </if>
+      <if test="imgNo2 != null" >
+        img_No2,
+      </if>
+      <if test="imgNo3 != null" >
+        img_No3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="sales != null" >
+        #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="imgNo1 != null" >
+        #{imgNo1,jdbcType=VARCHAR},
+      </if>
+      <if test="imgNo2 != null" >
+        #{imgNo2,jdbcType=VARCHAR},
+      </if>
+      <if test="imgNo3 != null" >
+        #{imgNo3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cumt.chiduoduo.model.Product" >
+    update product
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="sales != null" >
+        sales = #{sales,jdbcType=INTEGER},
+      </if>
+      <if test="imgNo1 != null" >
+        img_No1 = #{imgNo1,jdbcType=VARCHAR},
+      </if>
+      <if test="imgNo2 != null" >
+        img_No2 = #{imgNo2,jdbcType=VARCHAR},
+      </if>
+      <if test="imgNo3 != null" >
+        img_No3 = #{imgNo3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cumt.chiduoduo.model.Product" >
+    update product
+    set name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      stock = #{stock,jdbcType=INTEGER},
+      sales = #{sales,jdbcType=INTEGER},
+      img_No1 = #{imgNo1,jdbcType=VARCHAR},
+      img_No2 = #{imgNo2,jdbcType=VARCHAR},
+      img_No3 = #{imgNo3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByCategoryId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from product
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </select>
+  <select id="selectTop10Products" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from product order by sales desc ;
+  </select>
+  <select id="selectAllProductsToAdmin" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from product order by category_id;
+  </select>
+</mapper>

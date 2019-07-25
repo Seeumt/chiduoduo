@@ -1,0 +1,112 @@
+buildscript {
+  ext {
+    springBootVersion = '2.1.2.RELEASE'
+  }
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+  }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'com.cumt'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+  maven {url "http://maven.aliyun.com/nexus/content/groups/public/"}
+  mavenCentral()
+}
+
+configurations {
+//  mybatisGenerator
+  all*.exclude group: "org.slf4j",module: "slf4j-log4j12"
+}
+
+
+
+dependencies {
+//  mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.2'
+//  mybatisGenerator 'mysql:mysql-connector-java:5.1.38'
+//  mybatisGenerator 'tk.mybatis:mapper:3.3.1'
+  compile ('org.springframework.boot:spring-boot-starter-web:2.1.2.RELEASE')
+  compile 'org.springframework.boot:spring-boot-starter-mail:2.1.2.RELEASE'
+  compile 'org.apache.commons:commons-lang3:3.7'
+  compile 'org.hibernate:hibernate-validator:5.1.3.Final'
+  compile 'org.springframework.boot:spring-boot-starter-actuator:2.1.2.RELEASE'
+  compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
+  compile 'com.alibaba:druid:1.1.3'
+  compile('mysql:mysql-connector-java:8.0.13') {
+    exclude(module: 'protobuf-java')
+  }
+  compile 'org.projectlombok:lombok:1.18.4'
+  testCompile 'org.springframework.boot:spring-boot-starter-test:2.1.2.RELEASE'
+  compile 'com.alibaba:druid-spring-boot-starter:1.1.9'
+  compile 'io.springfox:springfox-swagger2:2.6.1'
+  compile 'io.springfox:springfox-swagger-ui:2.6.1'
+  // https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+  compile 'org.springframework.security:spring-security-core:5.1.3.RELEASE'
+  // https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
+  compile 'org.springframework.security:spring-security-web:5.1.3.RELEASE'
+  compile 'com.google.code.gson:gson:2.8.5'
+
+  compile group: 'com.qcloud', name: 'cos_api', version: '5.5.0'
+  compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+
+
+//  compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.0.1.RELEASE'
+//  compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.0.1.RELEASE'
+//  compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.0.1.RELEASE'
+//  compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.0.1.RELEASE'
+//
+//  compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+//  compile group: 'com.google.code.findbugs', name: 'findbugs', version: '3.0.1'
+//  compile group: 'tk.mybatis', name: 'mapper-spring-boot-starter', version: '2.0.3-beta1'
+//  compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: '2.0.1.RELEASE'
+}
+//def getDbProperties = {
+//  def properties = new Properties()
+//  file("src/main/resources/db-mysql.properties").withInputStream { inputStream ->
+//    properties.load(inputStream)
+//  }
+//  properties;
+//}
+//task mybatisGenerate << {
+//  def properties = getDbProperties()
+//  ant.properties['targetProject'] = projectDir.path
+//  ant.properties['driverClass'] = properties.getProperty("jdbc.driverClassName")
+//  ant.properties['connectionURL'] = properties.getProperty("jdbc.url")
+//  ant.properties['userId'] = properties.getProperty("jdbc.user")
+//  ant.properties['password'] = properties.getProperty("jdbc.pass")
+//  ant.properties['src_main_java'] = sourceSets.main.java.srcDirs[0].path
+//  ant.properties['src_main_resources'] = sourceSets.main.resources.srcDirs[0].path
+//  ant.properties['modelPackage'] = properties.getProperty("package.model")
+//  ant.properties['mapperPackage'] = properties.getProperty("package.mapper")
+//  ant.properties['sqlMapperPackage'] =properties.getProperty("package.xml")
+//  ant.taskdef(
+//    name: 'mbgenerator',
+//    classname: 'org.mybatis.generator.ant.GeneratorAntTask',
+//    classpath: configurations.mybatisGenerator.asPath
+//  )
+//  ant.mbgenerator(overwrite: true,
+//    configfile: 'src/main/resources/generatorConfig.xml', verbose: true) {
+//    propertyset {
+//      propertyref(name: 'targetProject')
+//      propertyref(name: 'userId')
+//      propertyref(name: 'driverClass')
+//      propertyref(name: 'connectionURL')
+//      propertyref(name: 'password')
+//      propertyref(name: 'src_main_java')
+//      propertyref(name: 'src_main_resources')
+//      propertyref(name: 'modelPackage')
+//      propertyref(name: 'mapperPackage')
+//      propertyref(name: 'sqlMapperPackage')
+//    }
+//  }
+//}
